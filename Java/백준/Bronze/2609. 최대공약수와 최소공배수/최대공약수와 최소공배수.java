@@ -1,3 +1,4 @@
+// to get LCM and GCD: O(logn) version
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
@@ -9,21 +10,22 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int num1 = Integer.parseInt(st.nextToken());
         int num2 = Integer.parseInt(st.nextToken());
-        int min_num = num1<num2?num1:num2;
-        int max_num = num1>num2?num1:num2;
-        int LCM = 1; // Least Common Multiple
-        int GCD = num1 * num2; // Greatest Common Divisor
-        for(int i=LCM; i<=min_num; i++){
-            if(num1%i == 0 && num2%i == 0){
-                LCM = i;
-            }
-        }
-        for(int i=GCD; i>=max_num; i--){
-            if(i%num1 == 0 && i%num2 == 0){
-                GCD = i;
-            }
-        }
-        System.out.println(LCM);
+
+        int GCD = getGCD(num1, num2); // Greatest Common Divisor
+        int LCM = num1*num2/GCD; // Least Common Multiple
+        // 최소공배수는 간단히 식으로 나옴
+        
         System.out.println(GCD);
+        System.out.println(LCM);
+    }
+
+    // 최대공약수(GCD)를 쉽게 구하기 위한 호제법
+    public static int getGCD(int num1, int num2){
+        while(num2 != 0){
+            int r = num1 % num2;
+            num1 = num2;
+            num2 = r;
+        }
+        return num1;
     }
 }
