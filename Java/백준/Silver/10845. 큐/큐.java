@@ -1,24 +1,23 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
-import java.util.StringTokenizer;
 
 public class Main {
     private static class Queue{
-        int head = -1;
-        int tail= -1;
-        int[] array = new int[10000];
+        int head = 0; // 빼낼 원소의 위치
+        int tail= 0; // 다음에 들어올 위치
+        int[] array = new int[10001];
 
         void push(int num){
-            if(tail+1<10000){
-            array[++tail]=num;
+            if(tail<10000){
+            array[tail++]=num;
             }
         }
         int pop(){
             if(empty()==1){
                 return -1;
             }
-            return array[++head];
+            return array[head++];
         }
         int size(){
             return tail-head;
@@ -30,13 +29,13 @@ public class Main {
             if(empty()==1){
                 return -1;
             }
-            return array[head+1];
+            return array[head];
         }
         int back(){
             if(empty()==1){
                 return -1;
             }
-            return array[tail];
+            return array[tail-1];
         }
     }
 
@@ -45,7 +44,6 @@ public class Main {
         int n = Integer.parseInt(br.readLine());
         String s;
         Queue queue= new Queue();
-        StringTokenizer st;
         StringBuilder sb = new StringBuilder();
 
         for(int i=0; i<n; i++){
@@ -68,10 +66,8 @@ public class Main {
                     sb.append(queue.back()).append("\n");
                     break;
                 default:
-                    if(s.substring(0,5).equals("push ")){
-                        st = new StringTokenizer(s);
-                        st.nextToken();
-                        queue.push(Integer.parseInt(st.nextToken()));
+                    if(s.startsWith("push ")){
+                        queue.push(Integer.parseInt(s.substring(5)));
                     }
                     break;
             }
