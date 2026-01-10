@@ -1,12 +1,11 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
-import java.util.StringTokenizer;
 
 public class Main {
     private static class Stack{
         int top=-1;
-        int[] array = new int[10000];
+        int[] array = new int[10001];
 
         void push(int num){
             if(top>=10000){
@@ -27,7 +26,7 @@ public class Main {
             return (top==-1)?1:0;
         }
         int top(){
-            if(top<0){
+            if(empty()==1){
                 return -1;
             }
             return array[top];
@@ -37,7 +36,6 @@ public class Main {
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
-        StringTokenizer st;
         String s;
         // 객체는 매개변수로 쓰일 시에 주솟값 복사하므로 객체의 변수 변경 가능
         Stack stack = new Stack(); 
@@ -59,11 +57,9 @@ public class Main {
                     sb.append(stack.top()).append("\n");
                     break;
                 default:
-                    if(s.substring(0,5).equals("push ")){
+                    if(s.startsWith("push ")){
                         // substring(a,b): a이상, b미만 인덱스를 리턴
-                        st=new StringTokenizer(s);
-                        st.nextToken();
-                        stack.push(Integer.parseInt(st.nextToken()));
+                        stack.push(Integer.parseInt(s.substring(5)));
                     }
                     break;
             }
