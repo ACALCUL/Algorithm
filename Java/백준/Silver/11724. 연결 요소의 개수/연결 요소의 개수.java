@@ -28,25 +28,31 @@ public class Main {
     private static int countConnect(int n, ArrayList<ArrayList<Integer>> graph){
         int count=0;
         boolean[] visited = new boolean[n+1];
-        Queue<Integer> queue = new ArrayDeque<>();
         
         for(int i=1; i<=n; i++){
-            if(visited[i]){ continue; }
-
-            queue.add(i);
-            visited[i]=true;
-            count++;
-
-            while(!queue.isEmpty()){
-                for(int next: graph.get(queue.poll())){
-                    if(!visited[next]){
-                        queue.add(next);
-                        visited[next]=true;
-                    }
-                }
+            if(!visited[i]){
+                count++;
+                bfs(i, graph, visited);
             }
-
         }
         return count;
     }
+
+    private static void bfs(int start, ArrayList<ArrayList<Integer>> graph, boolean[] visited){
+        Queue<Integer> queue = new ArrayDeque<>();
+        queue.add(start);
+        visited[start]=true;
+            
+
+        while(!queue.isEmpty()){
+            for(int next: graph.get(queue.poll())){
+                if(!visited[next]){
+                    queue.add(next);
+                    visited[next]=true;
+                }
+            }
+        }
+    }
+
+    
 }
