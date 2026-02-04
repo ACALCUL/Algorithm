@@ -12,23 +12,23 @@ public class Main {
         System.out.print(sb.toString());
     }
     private static void solve(int width, BufferedReader br) throws IOException{
-        int[][] arr = new int[width][2];
-        StringTokenizer st = new StringTokenizer(br.readLine());
+        StringTokenizer st1 = new StringTokenizer(br.readLine());
+        StringTokenizer st2 = new StringTokenizer(br.readLine());
+        int secondLastNum1 = 0;
+        int secondLastNum2 = 0;
+        int firstLastNum1 = 0;
+        int firstLastNum2 = 0;
+        int curNum1 = 0;
+        int curNum2 = 0;
+
         for(int i=0; i<width; i++){
-            arr[i][0] = Integer.parseInt(st.nextToken());
+            curNum1 = Integer.parseInt(st1.nextToken()) + Math.max(secondLastNum2, firstLastNum2);
+            curNum2 = Integer.parseInt(st2.nextToken()) + Math.max(secondLastNum1, firstLastNum1);
+            secondLastNum1 = firstLastNum1;
+            secondLastNum2 = firstLastNum2;
+            firstLastNum1 = curNum1;
+            firstLastNum2 = curNum2;
         }
-        st = new StringTokenizer(br.readLine());
-        for(int i=0; i<width; i++){
-            arr[i][1] = Integer.parseInt(st.nextToken());
-        }
-        if(width>1){
-            arr[1][0] += arr[0][1];
-            arr[1][1] += arr[0][0];
-        }
-        for(int i=2; i<width; i++){
-            arr[i][0] += Math.max(arr[i-1][1], arr[i-2][1]);
-            arr[i][1] += Math.max(arr[i-1][0], arr[i-2][0]);
-        }
-        sb.append(Math.max(arr[width-1][0], arr[width-1][1])).append("\n");
+        sb.append(Math.max(firstLastNum1, firstLastNum2)).append("\n");
     }
 }
