@@ -7,26 +7,14 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
-        int[][] arr = new int[N+1][N+1];
-        for(int i=1; i<=N; i++){
-            st = new StringTokenizer(br.readLine());
-            for(int j=1; j<=N; j++){
-                arr[i][j] = Integer.parseInt(st.nextToken());
-            }
-        }
-
-        // print2DArray(arr, N+1); // for checking arr
 
         int[][] DP = new int[N+1][N+1];
         for(int i=1; i<=N; i++){
-            int sumOfCurRow = 0;
+            st = new StringTokenizer(br.readLine());
             for(int j=1; j<=N; j++){
-                sumOfCurRow += arr[i][j];
-                DP[i][j]=DP[i-1][j]+sumOfCurRow;
+                DP[i][j]=DP[i-1][j]+DP[i][j-1]-DP[i-1][j-1]+Integer.parseInt(st.nextToken());
             }
         }
-
-        //print2DArray(DP, N+1); // for checking DP
 
         StringBuilder sb = new StringBuilder();
         for(int i=0; i<M; i++){
@@ -39,15 +27,6 @@ public class Main {
         }
         System.out.print(sb.toString());
 
-    }
-    private static void print2DArray(int[][] arr, int size){
-        System.out.println();
-        for(int i=0; i<size; i++){
-            for(int j=0; j<size; j++){
-                System.out.print(arr[i][j]+" ");             
-            }
-            System.out.println();
-        }
     }
     
 }
