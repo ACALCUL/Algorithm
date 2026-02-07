@@ -1,3 +1,4 @@
+// 0-1 BFS 풀이 방법: 가중치가 2개 일때만 작동(왜냐하면 addFirst, addLast로 차등을 주는 방식이므로)
 import java.io.*;
 import java.util.*;
 
@@ -11,34 +12,39 @@ public class Main {
     }
 
     private static int getMin(int start, int end){
+        if(start>=end) return start-end; // start가 end보다 클 때의 예외 처리 
+
         int maxNum = 100000;
         int distances[] = new int[maxNum+1];
-        Arrays.fill(distances, maxNum+1);
+        Arrays.fill(distances, -1);
         
-        Queue<Integer> queue = new ArrayDeque<Integer>();
+        Deque<Integer> deque = new ArrayDeque<Integer>();
         distances[start]= 0;
-        queue.offer(start);
-        while(!queue.isEmpty()){
-            int curNum = queue.poll();
+        deque.offer(start);
+
+        while(!deque.isEmpty()){
+            int curNum = deque.poll();
+            if(curNum == end) break; // 종료 조건
             int curDistance = distances[curNum];
-            int nextNums[] = {curNum+1, curNum-1, 2*curNum};
-            // System.out.println("curNum: "+curNum+"\nnextNums: "+Arrays.toString(nextNums));
-            for(int i=0; i<3; i++){
-                int nextNum = nextNums[i];
-                if(nextNum<0 || nextNum>maxNum){ // 범위가 넘어설 경우 이번 루프 뛰어넘기
-                    continue;
-                }
-                if(distances[nextNum] == maxNum+1){ // 무한루프 방지를 위해 queue에 들어갔던 num은 제외
-                    queue.offer(nextNum);
-                }
 
-                if(i == 2){
-                    distances[nextNum] = Math.min(distances[nextNum], curDistance);
-                }else{
-                    distances[nextNum] = Math.min(distances[nextNum], curDistance+1);
+            // 1. 시간이 0인 경우: curNum*2
+            int nextNum1 = curNum*2;
+            if(nextNum1<=maxNum){
+                if(distances[nextNum1]==-1 || distances[nextNum1] > curDistance){
+                    distances[nextNum1] = curDistance;
+                    deque.addFirst(nextNum1); 
                 }
+            }
 
-                // System.out.println("\tnextNum: "+nextNum+"\n\tdistance: "+distances[nextNum]);
+            // 2. 시간이 1인 경우: curNum+1, curNum-1
+            int[] nextNums = {curNum+1, curNum-1};
+            for(int nextNum : nextNums){
+                if(nextNum >=0 && nextNum<=maxNum){
+                    if(distances[nextNum]==-1 || distances[nextNum] > curDistance+1){
+                        distances[nextNum] = curDistance+1;
+                        deque.addLast(nextNum);
+                    }
+                }
             }
 
         }
