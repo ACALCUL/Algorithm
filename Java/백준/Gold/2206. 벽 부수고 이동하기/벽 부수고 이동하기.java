@@ -85,7 +85,7 @@ public class Main {
                     if(!visited[1][nxtX][nxtY]){
                         visited[1][nxtX][nxtY] = true;
                         queue.offer(new Node(nxtX, nxtY, nxtDist, true));
-                }
+                    }
                 }
             }
 
