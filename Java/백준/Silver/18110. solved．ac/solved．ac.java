@@ -6,6 +6,10 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         
+        if(n==0) {
+            System.out.println(0); 
+            return;
+        }
 
         int[] values = new int[n];
         for(int i=0; i<n; i++){
@@ -14,24 +18,17 @@ public class Main {
         Arrays.sort(values);
         // System.out.println(Arrays.toString(values));
 
-       System.out.println(getLevel(n, values)); 
-
-    }
-
-    private static int rounding(float num){
-        return num%1 < 0.5 ? (int)num : (int)num+1;
-    }
-
-    private static int getLevel(int n, int[] values){
-        if(n < 1) return 0;
-        int removeNum = rounding(n*0.15f);
+        int removeNum = Math.round(n*0.15f);
         int valueSum = 0;
         for(int i=removeNum; i<n-removeNum; i++){
             valueSum += values[i];
-            //System.out.println("add "+values[i]);
         }
-        //System.out.println(valueSum);
-        //System.out.println(n-2*removeNum);
-        return rounding((float)valueSum/(n-2*removeNum));
+        int valueAvg = Math.round((float)valueSum/(n-2*removeNum));
+        // Math.rouond((float))는 int 반환하지만,
+        // Math.round((double))은 long 반환
+
+        
+        System.out.println(valueAvg); 
     }
+
 }
