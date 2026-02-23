@@ -29,11 +29,11 @@ public class Main {
             return;
         }
 
+        int lastUsed = -1;
         for(int i=startIndex; i<N; i++){
-            if(i+1<N && nums[i]==nums[i+1]){
-                continue;
-            }
+            if(nums[i] == lastUsed) { continue;}
             arr[depth]=nums[i];
+            lastUsed = nums[i];
             getSeq(N, nums, M, arr, depth+1, i);
         }
     }
