@@ -17,6 +17,8 @@ class Solution {
         
         int answer = 1;
         for(String type: typeIdToNum.keySet()){
+            // keySet(): 모든 key를 Set 객체로 변환(중복값이 허용되지 않으므로 Set)
+            // values(): 모든 value를 Collection 객체로 변환
             answer*=typeIdToNum.get(type)+1;
         }
         
