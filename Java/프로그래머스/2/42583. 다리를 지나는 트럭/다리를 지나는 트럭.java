@@ -11,14 +11,13 @@ class Solution {
             int truck_weight = truck_weights[i];
             while(trucksWeight+truck_weight > weight){ // while weight of trucks is bigger than max weight
                 time = Math.max(time, startCrossingTime[crossingTrucks.peek()]+bridge_length);
-                trucksWeight-=truck_weights[crossingTrucks.poll()];
-                
-                
+                trucksWeight-=truck_weights[crossingTrucks.poll()]; 
             }
             crossingTrucks.offer(i);
             trucksWeight += truck_weight;
             startCrossingTime[i] = time++;
         }
+        
         int finalTruck=-1;
         while(!crossingTrucks.isEmpty()){
             finalTruck = crossingTrucks.poll();
