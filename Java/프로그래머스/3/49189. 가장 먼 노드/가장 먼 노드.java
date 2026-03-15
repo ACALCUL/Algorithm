@@ -15,43 +15,38 @@ class Solution {
         
         return getLongestNodeNum(n, graph);
     }
-    class Node{
-        int vertex;
-        int depth;
-        Node(int vertex, int depth){
-            this.vertex = vertex;
-            this.depth = depth;
-        }
-    }
     
     private int getLongestNodeNum(int n, List<List<Integer>> graph){
+        // Node 객체를 만드는 것보다 int[] 배열을 만드는 것이 효율적
+        int count = 0;
         int maxDepth = 0;
-        int count = 1;
+        int[] dist = new int[n+1];
         boolean[] visited = new boolean[n+1]; 
-        Queue<Node> queue = new ArrayDeque<>();
-        queue.offer(new Node(1, 0));
+        Queue<Integer> queue = new ArrayDeque<>();
+        
+        queue.offer(1);
         visited[1]=true;
+        dist[1]=0;
+        
         while(!queue.isEmpty()){
-            Node curNode = queue.poll();
-            int curV = curNode.vertex;
-            int curD = curNode.depth;
-            
-            if(curD > maxDepth){
+            int curV = queue.poll();
+            int curD = dist[curV];
+            if(maxDepth < curD){
                 maxDepth = curD;
                 count = 1;
             }else{
                 count++;
             }
-            // System.out.printf("curV: %d, curD: %d, count: %d\n", curV, curD, count);
             
             for(int nextV: graph.get(curV)){
                 if(!visited[nextV]){
-                    queue.offer(new Node(nextV, curD+1));
-                    visited[nextV]=true;   
+                    queue.offer(nextV);
+                    visited[nextV]=true;  
+                    dist[nextV] = curD + 1;
                 }
             }
-            
         }
+        
         return count;
     }
 }
