@@ -23,6 +23,8 @@ class Solution {
             }
         });
         
+        // 전체 정렬을 한번만 하므로 PQ보다 array를 sorting하는게 낫다
+        // 구현과정은 쉬우므로 PQ기반을 굳이 수정하지는 않음
         PriorityQueue<Job> deactiveQ = new PriorityQueue<>((a,b)->{
             return Integer.compare(a.requestTime, b.requestTime);
         });
