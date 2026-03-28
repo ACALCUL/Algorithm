@@ -2,22 +2,23 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] citations) {
-        Arrays.sort(citations);
-        // System.out.println(Arrays.toString(citations));
+        int n = citations.length;
         
-        // LowerBound를 통해 문제 조건이 참에서 거짓으로 바뀌는 지점을 빠르게 찾아내기
-        int low = 0;
-        int high = citations.length; 
+        // citations를 오름차순 정렬
+        Arrays.sort(citations);
+        
+        // 이분탐색을 통해 lowerBound 찾기
+        int low=0;
+        int high=n;
         while(low<high){
-            int mid = low + (high-low)/2;
-            if(citations.length - mid >= citations[mid]){
-                low = mid+1;
-            }else{
-                high= mid;
+            int i = low + (high-low)/2;
+            if(citations[i]>=n-i){
+                high=i;
+            } else{
+                low=i+1;
             }
         }
-        // low-1이 조건의 참을 충족하는 최대 인덱스
-        // 개수를 구해야하므로 다음을 리턴
-        return citations.length - low;
+        // while문이 끝나면 low 또는 high가 조건을 만족한 i가 됨
+        return n-high; // h값 리턴
     }
 }
