@@ -1,12 +1,10 @@
 import java.util.*;
 
 class Solution {
-    public String solution(String number, int k) {
-        // k: 삭제할 원소 개수
+    public String solution(String number, int k) {// k: 삭제할 원소 개수
         Deque<Character> stack = new ArrayDeque<>();
         for(char c: number.toCharArray()){
-            while(!stack.isEmpty() && stack.peek()<c 
-               && k-->0){
+            while(!stack.isEmpty() && stack.peek()<c && k-->0){
                 stack.pop();
             }
             stack.push(c);
