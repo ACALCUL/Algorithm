@@ -5,13 +5,16 @@ public class Solution {
         Scanner sc = new Scanner(System.in);
         String str = sc.next();
         int diff = 'a'-'A';
-        for(int i=0; i<str.length(); i++){
-            int code = str.charAt(i);
-            if( code < (int)('a') ){ // if c is upper character
-                System.out.print((char)(code+diff));
-            } else{
-                System.out.print((char)(code-diff));
+        StringBuilder sb = new StringBuilder();
+        for(int c: str.toCharArray()){
+            if( c < (int)'a'){
+                // c is lower character
+                sb.append((char)(c+diff));
+            }else{
+                sb.append((char)(c-diff));
             }
         }
+        System.out.println(sb.toString());
+
     }
 }
