@@ -6,27 +6,17 @@ class Solution {
         
         int answer = 0;
         for(String s:babbling){
-            //System.out.println("현재 s: "+s);
-            int offset = 0;
-            while(offset<s.length()){
-                boolean loopValid = false;
-                for(String word: words){
-                    int wordLen = word.length();
-                    if(offset+wordLen<=s.length() && word.equals(s.substring(offset, offset+wordLen))){
-                        //System.out.printf("현재 word: %s, 현재 offset: %d, 바뀐 offset: %d\n", word, offset, offset+wordLen);
-                        offset+=wordLen;
-                        loopValid = true;
-                        break;
-                    }
-                }
-                if(!loopValid){
-                    break;
-                }
+            //System.out.println("s: "+s);
+            
+            for(String word: words){
+                s = s.replace(word, "1");
             }
-            if(offset>=s.length()){
+            //System.out.println("After s: "+s);
+            s = s.replace("1", "");
+            if("".equals(s)){
+                //System.out.println("Sucess!");
                 answer++;
             }
-            
         }
         
         return answer;
