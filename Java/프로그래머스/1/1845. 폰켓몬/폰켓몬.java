@@ -7,13 +7,8 @@ class Solution {
             map.add(num);
         }
         
-        int cnt = 0;
-        for(int num: map){
-            cnt++;
-        }
-        
         int len = nums.length;
-        int answer = len/2>cnt? cnt: len/2;
+        int answer = len/2>map.size()? map.size(): len/2;
         return answer;
     }
 }
