@@ -1,25 +1,20 @@
 import java.util.*;
-// HashSet을 통해 하위범주가 있는지 여부를 체크하는 참신한 방법
 
-class Solution {
-    public boolean solution(String[] phone_book) {
+class Solution{
+    public boolean solution(String[] phone_book){
         boolean answer = true;
         
-        HashSet<String> hashSet = new HashSet<>();
+        Arrays.sort(phone_book, Comparator.naturalOrder());
+        HashSet<String> set = new HashSet<>();
         
-        for(String num: phone_book){
-            hashSet.add(num);
-        }
-        
-        for(String num: phone_book){
-            for(int i=0; i<num.length()-1; i++){
-                String subNum = num.substring(0, i+1);
-                if(hashSet.contains(subNum)){
+        for(String phone: phone_book){
+            for(int i=0; i<phone.length(); i++){
+                if(set.contains(phone.substring(0,i)))
                     return false;
-                }
             }
+            set.add(phone);
         }
         
-        return answer;
+        return answer;   
     }
 }
