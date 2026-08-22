@@ -3,7 +3,6 @@ import java.util.*;
 class Solution{
     public int solution(String[][] clothes){
         HashMap<String, Integer> map = new HashMap<>();
-        
         for(String[] clothe: clothes){
             map.put(clothe[1], map.getOrDefault(clothe[1], 0)+1);
         }
@@ -14,6 +13,6 @@ class Solution{
             num*=value+1;
         }
         
-        return num-1;
+        return --num;
     }
 }
