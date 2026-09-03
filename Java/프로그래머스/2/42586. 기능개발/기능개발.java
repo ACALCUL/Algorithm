@@ -2,26 +2,27 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] progresses, int[] speeds) {
-        Queue<Integer> works = new ArrayDeque<>();
-        for(int i=0; i<progresses.length; i++){
-            works.offer(i);
-        }
-        List<Integer> answerList = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+        
         int day = 1;
-        while(!works.isEmpty()){
-            int worksOnDay = 0;
-            while(!works.isEmpty() && 
-                  progresses[works.peek()]+speeds[works.peek()]*day >= 100){
-                works.poll();
-                worksOnDay++;
+        int funcNum = 0;
+        for(int i=0; i<progresses.length; i++){
+            while(progresses[i]+day*speeds[i]<100){
+                day++;
             }
-            if(worksOnDay > 0){
-                answerList.add(worksOnDay);
+            funcNum++;
+            //System.out.printf("i: %d, day: %d, funcNum: %d\n", i, day, funcNum);
+            if( i==progresses.length-1 || progresses[i+1]+day*speeds[i+1]<100) {
+                list.add(funcNum);
+                funcNum=0;
             }
-            day++;
+            
         }
         
-        int[] answer = answerList.stream().mapToInt(Integer:: intValue).toArray();
+        int[] answer= new int[list.size()];
+        for(int i =0; i<list.size(); i++){
+            answer[i]=list.get(i);
+        }
         return answer;
     }
 }
