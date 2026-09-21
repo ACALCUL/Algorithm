@@ -2,26 +2,21 @@ import java.util.*;
 
 public class Solution {
     public int[] solution(int []arr) {
-        Queue<Integer> queue = new ArrayDeque<>();
-        for(int i: arr){
-            queue.offer(i);
-        }
+        ArrayList<Integer> solList = new ArrayList<>();
         
-        List<Integer> answerList = new ArrayList<>();
-        int lastValue = -1;
-        while(!queue.isEmpty()){
-            int i = queue.poll();
-            if(lastValue != i){
-                answerList.add(i);
+        int pastNum = -1;
+        for(int i=0; i<arr.length; i++){
+            int curNum = arr[i];
+            if(curNum != pastNum){
+                solList.add(curNum);
             }
-            lastValue = i;
+            pastNum = arr[i];
         }
         
-        int[] answer = new int[answerList.size()];
-        for(int i=0; i<answerList.size(); i++){
-            answer[i]=answerList.get(i);
+        int[] sol = new int[solList.size()];
+        for(int i=0; i<sol.length; i++){
+            sol[i]=solList.get(i);
         }
-
-        return answer;
+        return sol;
     }
 }
