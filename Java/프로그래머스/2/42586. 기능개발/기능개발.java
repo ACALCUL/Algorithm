@@ -10,7 +10,7 @@ class Solution {
         int progressNum=0;
         for(int i=0; i<speeds.length; i++){
             int durationDay = getDays(progresses[i], speeds[i]);
-            if(curDay < durationDay){ //등호는 어디에 넣을지 고민
+            if(curDay < durationDay){
                 solList.add(progressNum);
                 progressNum=0;
                 curDay = durationDay;
