@@ -2,27 +2,37 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] progresses, int[] speeds) {
-        List<Integer> list = new ArrayList<>();
-        
-        int day = 1;
-        int funcNum = 0;
-        for(int i=0; i<progresses.length; i++){
-            while(progresses[i]+day*speeds[i]<100){
-                day++;
+        // for(int i=0; i<speeds.length; i++){
+        //     System.out.println( getDays(progresses[i], speeds[i]) );
+        // }
+        List<Integer> solList = new ArrayList<>();
+        int curDay=0;
+        int progressNum=0;
+        for(int i=0; i<speeds.length; i++){
+            int durationDay = getDays(progresses[i], speeds[i]);
+            if(curDay < durationDay){ //등호는 어디에 넣을지 고민
+                solList.add(progressNum);
+                progressNum=0;
+                curDay = durationDay;
+                progressNum++;
+            }else{
+                progressNum++;
             }
-            funcNum++;
-            //System.out.printf("i: %d, day: %d, funcNum: %d\n", i, day, funcNum);
-            if( i==progresses.length-1 || progresses[i+1]+day*speeds[i+1]<100) {
-                list.add(funcNum);
-                funcNum=0;
-            }
-            
         }
+        solList.add(progressNum);
         
-        int[] answer= new int[list.size()];
-        for(int i =0; i<list.size(); i++){
-            answer[i]=list.get(i);
+        int[] sol = new int[solList.size()-1];
+        for(int i=1; i<solList.size(); i++){
+            sol[i-1] = solList.get(i);
         }
-        return answer;
+        return sol;
+    }
+    
+    public int getDays(int progress, int speed){
+        int days = (100-progress)/speed;
+        if((100-progress)%speed!=0){
+            days++;
+        }
+        return days;
     }
 }
